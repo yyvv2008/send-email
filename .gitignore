@@ -1,0 +1,7 @@
+.idea
+Config/default.php
+Log
+Temp
+vendor
+composer.lock
+htdocs/up
