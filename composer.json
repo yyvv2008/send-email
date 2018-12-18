@@ -8,7 +8,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Job\\": "send-email/"
+      "JobHelper\\": "send-email/"
     }
   },
   "minimum-stability": "dev",

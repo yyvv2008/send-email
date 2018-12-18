@@ -6,12 +6,12 @@
  * Time: 14:42
  */
 
-namespace Job;
+namespace JobHelper;
 
-
+use Job\BaseJob;
 use PHPMailer\PHPMailer\PHPMailer;
 
-class SendEmail
+class SendEmail extends BaseJob
 {
     private $addresses;
     private $subject;
@@ -39,10 +39,10 @@ class SendEmail
         }
 
         $job = serialize($this);
-        return (new Common())->put($job, $host, $port);
+        return $this->put($job, $host, $port);
     }
 
-    public function exec()
+    public function exec($obj)
     {
         $mail = new PHPMailer(true);
         try {
@@ -60,14 +60,14 @@ class SendEmail
             //Recipients
             $mail->setFrom('591012658@qq.com');
 
-            foreach ($this->addresses as $address) {
+            foreach ($obj->addresses as $address) {
                 $mail->addAddress($address);
             }
 
             //Content
             $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = $this->subject;
-            $mail->Body = $this->body;
+            $mail->Subject = $obj->subject;
+            $mail->Body = $obj->body;
 
             $mail->send();
         } catch (\Exception $e) {
