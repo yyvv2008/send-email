@@ -32,14 +32,14 @@ class SendEmail
         return $this->body = $body;
     }
 
-    public function putJob()
+    public function putJob($host, int $port = 11300)
     {
         if (!($this->addresses && $this->subject && $this->body)) {
             return false;
         }
 
         $job = serialize($this);
-        return (new Common())->put($job);
+        return (new Common())->put($job, $host, $port);
     }
 
     public function exec()
